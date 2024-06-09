@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rule 60 30 10</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .contenedor {
+        display: flex;
+        height: 100vh;
+      }
+
+      .dominante {
+        background-color: brown;
+        flex: 6 1 0;
+        position: relative;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex: 4;
+      }
+
+      .secundario {
+        background-color: aqua;
+        flex: 3 1 0;
+        position: relative;
+      }
+
+      .acento {
+        background-color: red;
+        flex: 1 1 0;
+        position: relative;
+      }
+
+      .selector {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px;
+        border-radius: 10px;
+      }
+
+      .selector input {
+        border: none;
+        cursor: pointer;
+      }
+
+      button a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <div class="dominante">
+        <div class="selector">
+          <input type="color" id="colorDominante" value="#ffff" />
+          <button id="applyButton">Apply</button>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="secundario">
+          <div class="selector">
+            <input type="color" id="colorSecundario" value="#cccc" />
+          </div>
+        </div>
+
+        <div class="acento">
+          <div class="selector">
+            <input type="color" id="colorAcento" value="#ffff" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        const colorDominante = localStorage.getItem("colorDominante");
+        const colorSecundario = localStorage.getItem("colorSecundario");
+        const colorAcento = localStorage.getItem("colorAcento");
+
+        document.getElementById("colorDominante").value = colorDominante;
+        document.getElementById("colorSecundario").value = colorSecundario;
+        document.getElementById("colorAcento").value = colorAcento;
+
+        document.getElementById("dominante").style.backgroundColor =
+          colorDominante;
+        document.getElementById("secundario").style.backgroundColor =
+          colorSecundario;
+        document.getElementById("acento").style.backgroundColor = colorAcento;
+      });
+
+      const cambiarColor = (inputElement) => {
+        const contenedor = inputElement.parentElement.parentElement;
+        contenedor.style.backgroundColor = inputElement.value;
+      };
+
+      document
+        .getElementById("colorDominante")
+        .addEventListener("input", (event) => {
+          cambiarColor(event.currentTarget);
+        });
+
+      document
+        .getElementById("colorSecundario")
+        .addEventListener("input", (event) => {
+          cambiarColor(event.currentTarget);
+        });
+
+      document
+        .getElementById("colorAcento")
+        .addEventListener("input", (event) => {
+          cambiarColor(event.currentTarget);
+        });
+
+      document.getElementById("applyButton").addEventListener("click", () => {
+        const colorDominante = document.getElementById("colorDominante").value;
+        const colorSecundario =
+          document.getElementById("colorSecundario").value;
+        const colorAcento = document.getElementById("colorAcento").value;
+
+        localStorage.setItem("colorDominante", colorDominante);
+        localStorage.setItem("colorSecundario", colorSecundario);
+        localStorage.setItem("colorAcento", colorAcento);
+
+        window.location.href = "apply.html";
+      });
+    </script>
+  </body>
+</html>
